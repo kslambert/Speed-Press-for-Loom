@@ -3,6 +3,7 @@
 
   // --- State ---
   let video = null;
+  let overlay = null;
   let state = 'IDLE'; // IDLE | PENDING | BOOSTING
   let longPressTimer = null;
   let originalPlaybackRate = 1.0;
@@ -25,6 +26,31 @@
     }
   });
 
+  // --- Speed indicator overlay ---
+  function createOverlay() {
+    const el = document.createElement('div');
+    el.style.cssText = [
+      'position: fixed',
+      'top: 50%',
+      'left: 50%',
+      'transform: translate(-50%, -50%)',
+      'background: rgba(0, 0, 0, 0.55)',
+      'color: #fff',
+      'padding: 10px 22px',
+      'border-radius: 12px',
+      'font-size: 30px',
+      'font-weight: 700',
+      'font-family: -apple-system, BlinkMacSystemFont, sans-serif',
+      'letter-spacing: -0.5px',
+      'pointer-events: none',
+      'z-index: 2147483647',
+      'opacity: 0',
+      'transition: opacity 0.15s ease',
+    ].join(';');
+    document.body.appendChild(el);
+    return el;
+  }
+
   // --- Event Handlers ---
   function onMouseDown(event) {
     // Only primary mouse button
@@ -44,6 +70,11 @@
       }
       state = 'BOOSTING';
       video.playbackRate = boostSpeed;
+      // Show the speed badge
+      if (overlay) {
+        overlay.textContent = `${boostSpeed}x`;
+        overlay.style.opacity = '1';
+      }
     }, 300);
   }
 
@@ -58,6 +89,8 @@
         // Video may have been removed
       }
       suppressNextClick = true;
+      // Hide the speed badge
+      if (overlay) overlay.style.opacity = '0';
     }
     state = 'IDLE';
   }
@@ -67,6 +100,7 @@
     if (video === videoEl) return;
     detachFromVideo();
     video = videoEl;
+    overlay = createOverlay();
   }
 
   function detachFromVideo() {
@@ -75,6 +109,8 @@
         video.playbackRate = originalPlaybackRate;
       } catch (_) {}
     }
+    overlay?.remove();
+    overlay = null;
     video = null;
     state = 'IDLE';
     clearTimeout(longPressTimer);
