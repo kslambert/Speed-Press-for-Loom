@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speed Press</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="icons/icon48.png" alt="" class="logo">
+      <div class="header-text">
+        <h1>Speed Press</h1>
+        <span class="subtitle">for Loom</span>
+      </div>
+    </header>
+
+    <p class="description">
+      Hold the mouse button while a video is playing to increase speed.
+    </p>
+
+    <section class="speed-section">
+      <label class="section-label">Press Speed</label>
+      <div class="pill-group" id="speedPills">
+        <button class="pill" data-speed="2">2x</button>
+        <button class="pill" data-speed="2.5">2.5x</button>
+        <button class="pill" data-speed="3">3x</button>
+        <button class="pill" data-speed="3.5">3.5x</button>
+        <button class="pill" data-speed="4">4x</button>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span class="status" id="statusMsg">Saved</span>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
