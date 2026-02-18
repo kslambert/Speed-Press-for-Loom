@@ -7,7 +7,7 @@ A Chrome extension that lets you temporarily speed up a Loom video by holding do
 1. Go to `chrome://extensions`
 2. Enable **Developer mode** (toggle in the top right)
 3. Click **Load unpacked**
-4. Select the folder where Speed Press is located
+4. Clone/Download the source code and select the folder where Speed Press is located
 5. Visit a Loom video page, start playing a video, then **click-and-hold** to speed up
 
 ## Usage
