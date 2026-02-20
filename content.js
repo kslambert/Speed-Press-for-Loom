@@ -31,14 +31,14 @@
     const el = document.createElement('div');
     el.style.cssText = [
       'position: fixed',
-      'top: 50%',
-      'left: 50%',
-      'transform: translate(-50%, -50%)',
+      'top: 20px',          // overwritten to video-relative value on show
+      'left: 50%',          // overwritten to video-relative value on show
+      'transform: translateX(-50%)',
       'background: rgba(0, 0, 0, 0.55)',
       'color: #fff',
-      'padding: 10px 22px',
+      'padding: 8px 20px',
       'border-radius: 12px',
-      'font-size: 30px',
+      'font-size: 28px',
       'font-weight: 700',
       'font-family: -apple-system, BlinkMacSystemFont, sans-serif',
       'letter-spacing: -0.5px',
@@ -49,6 +49,15 @@
     ].join(';');
     document.body.appendChild(el);
     return el;
+  }
+
+  // Position the overlay 20px from the top of the video element, centered horizontally.
+  // Uses getBoundingClientRect() so it stays within the video regardless of letterboxing.
+  function positionOverlay() {
+    if (!overlay || !video) return;
+    const rect = video.getBoundingClientRect();
+    overlay.style.top = `${rect.top + 20}px`;
+    overlay.style.left = `${rect.left + rect.width / 2}px`;
   }
 
   // --- Event Handlers ---
@@ -70,8 +79,9 @@
       }
       state = 'BOOSTING';
       video.playbackRate = boostSpeed;
-      // Show the speed badge
+      // Show the speed badge, positioned within the video bounds
       if (overlay) {
+        positionOverlay();
         overlay.textContent = `${boostSpeed}x`;
         overlay.style.opacity = '1';
       }
