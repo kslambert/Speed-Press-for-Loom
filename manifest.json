@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Speed Press for Loom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hold mouse button while a Loom video is playing to temporarily increase playback speed.",
   "permissions": ["storage"],
   "action": {
